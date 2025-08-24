@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit"
+import { combineReducers, configureStore } from "@reduxjs/toolkit"
 import { tasksSlice } from "./slices/tasksSlice"
 import { filtersSlice } from "./slices/filtersSlice"
 import { preferencesSlice } from "./slices/preferencesSlice"
@@ -8,13 +8,15 @@ import { persistenceMiddleware, loadPersistedState } from "./middleware/persiste
 
 const preloadedState = loadPersistedState()
 
-export const store = configureStore({
-  reducer : {
-    tasks: tasksSlice.reducer,
-    filters: filtersSlice.reducer,
-    preferences: preferencesSlice.reducer,
-    sorting: sortingSlice.reducer,
-  },
+const rootReducer = combineReducers({
+  tasks: tasksSlice.reducer,
+  filters: filtersSlice.reducer,
+  preferences: preferencesSlice.reducer,
+  sorting: sortingSlice.reducer,
+});
+
+export const store : any = configureStore({
+  reducer : rootReducer,
   preloadedState,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
