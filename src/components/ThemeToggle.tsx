@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { setTheme } from "@/redux/slices/preferencesSlice"
 import { Moon, Sun } from "lucide-react"
@@ -53,24 +52,12 @@ export function ThemeToggle() {
   }
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm" className="gap-2 bg-transparent">
+   
+        <Button variant="outline" size="sm" className="gap-2 bg-transparent" onClick={() => theme === "dark" ? handleThemeChange("light") : handleThemeChange("dark")}>
           {getThemeIcon()}
           <span className="hidden sm:inline">{getThemeLabel()}</span>
           <span className="sr-only">Toggle theme</span>
         </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => handleThemeChange("light")} className="gap-2">
-          <Sun className="h-4 w-4" />
-          Light
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => handleThemeChange("dark")} className="gap-2">
-          <Moon className="h-4 w-4" />
-          Dark
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+ 
   )
 }
