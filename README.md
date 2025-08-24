@@ -46,6 +46,7 @@ At first I was saving the entire state to localStorage on every action, which ma
 - **react-redux**: React Redux bindings
 - **date-fns**: Date utilities
 - **lucide-react**: Icon library
+- **ShadCn** : UI library
 - **tailwindcss**: Styling framework
 - **vite**: Build tool and dev server
 ### Development Tools
