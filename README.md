@@ -1,69 +1,57 @@
-# React + TypeScript + Vite
+# Mini Kanban Board
+Sriram H S
+Assignment for PixelMind - MiniKanban board
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Quick Start
 
-Currently, two official plugins are available:
+# Install dependencies
+npm install
+# Start development server
+npm run dev
+# Build for production
+npm run build
+# Preview production build
+npm run preview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+##  Features
+### Core Functionality
+- **Three-column layout**: Todo, In Progress, Done
+- **Drag & Drop**: Reorder tasks within columns or move between columns
+- **Task Management**: Create, edit, and delete tasks with rich metadata
+- **Real-time Progress**: Visual progress bar showing completion status
+### Advanced Features
+- **Smart Filtering**: Filter by priority, due date, or search by text
+- **Flexible Sorting**: Sort tasks by due date, priority, or manual order
+- **Theme Support**: Light, dark, and system theme modes
+- **Data Persistence**: Automatic localStorage backup with export/import
+- **Responsive Design**: Works seamlessly on desktop and mobile
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Challenges I faced & How I resolved Them
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Challenges
+ 1. **Drag & drop got messy with sorting**
+Drag-and-drop worked fine until I added “sort by due date” and “sort by priority.” now the were tasks moving in unexpected ways . My fix was to always persist a manual order separately, and only derive sorted lists in selectors.
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+2. **LocalStorage persistence slowed things down**
+At first I was saving the entire state to localStorage on every action, which made typing in a form feel laggy. I fixed this by writing a tiny middleware that debounced the saves and only wrote the parts of the state that actually changed.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+
+### Key Dependencies
+- **@hello-pangea/dnd**: Drag and drop functionality
+- **@reduxjs/toolkit**: State management
+- **react-redux**: React Redux bindings
+- **date-fns**: Date utilities
+- **lucide-react**: Icon library
+- **tailwindcss**: Styling framework
+- **vite**: Build tool and dev server
+### Development Tools
+- **TypeScript**: Type safety
+- **ESLint**: Code linting
+- **Prettier**: Code formatting
+- **Tailwind CSS**: Utility-first styling
+- **Vite**: Fast build tool and HMR
+
