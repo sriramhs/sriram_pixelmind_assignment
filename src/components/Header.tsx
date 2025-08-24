@@ -42,7 +42,7 @@ export function Header() {
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Add new task (N)</p>
+                    <p>Add new task</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
