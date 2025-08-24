@@ -14,7 +14,7 @@ export const selectSorting = (state: RootState) => state.sorting
 export const selectAllTasks = createSelector([selectTasks], (tasks) => Object.values(tasks))
 
 export const selectFilteredTasks = createSelector([selectAllTasks, selectFilters], (tasks, filters) => {
-  return tasks.filter((task) => {
+  return tasks.filter((task:any) => {
 
     if (filters.mode === "high" && task.priority !== "High") return false
     if (filters.mode === "today" && !isToday(task.dueDate)) return false
@@ -41,27 +41,27 @@ export const selectTasksByColumn = createSelector(
     }
 
 
-    const filteredTaskIds = new Set(filteredTasks.map((task) => task.id))
+    const filteredTaskIds = new Set(filteredTasks.map((task:any) => task.id))
 
 
-    Object.entries(manualOrder).forEach(([columnId, taskIds]) => {
+    Object.entries(manualOrder).forEach(([columnId, taskIds]:any) => {
       const column = columnId as ColumnId
       const columnTasks = taskIds
-        .map((id) => tasks[id])
+        .map((id:any) => tasks[id])
         .filter(Boolean)
-        .filter((task) => filteredTaskIds.has(task.id)) 
+        .filter((task:any) => filteredTaskIds.has(task.id)) 
 
       // Apply sorting
       const sortBy = sorting.by[column]
       if (sortBy === "dueDate") {
-        columnTasks.sort((a, b) => {
+        columnTasks.sort((a:any, b:any) => {
           const dateA = new Date(a.dueDate).getTime()
           const dateB = new Date(b.dueDate).getTime()
           if (dateA === dateB) return a.title.localeCompare(b.title)
           return dateA - dateB
         })
       } else if (sortBy === "priority") {
-        columnTasks.sort((a, b) => {
+        columnTasks.sort((a:any, b:any) => {
           const priorityComparison = comparePriority(a.priority, b.priority)
           if (priorityComparison === 0) return a.title.localeCompare(b.title)
           return priorityComparison
@@ -77,7 +77,7 @@ export const selectTasksByColumn = createSelector(
 
 export const selectProgress = createSelector([selectAllTasks], (tasks) => {
   const totalCount = tasks.length
-  const doneCount = tasks.filter((task) => task.column === "done").length
+  const doneCount = tasks.filter((task:any) => task.column === "done").length
   const percent = totalCount > 0 ? Math.round((doneCount / totalCount) * 100) : 0
 
   return { doneCount, totalCount, percent }
@@ -86,11 +86,11 @@ export const selectProgress = createSelector([selectAllTasks], (tasks) => {
 export const selectTaskById = (taskId: string) => createSelector([selectTasks], (tasks) => tasks[taskId] || null)
 
 export const selectHighPriorityTasks = createSelector([selectAllTasks], (tasks) =>
-  tasks.filter((task) => task.priority === "High"),
+  tasks.filter((task:any) => task.priority === "High"),
 )
 
 export const selectTasksDueToday = createSelector([selectAllTasks], (tasks) =>
-  tasks.filter((task) => isToday(task.dueDate)),
+  tasks.filter((task:any) => isToday(task.dueDate)),
 )
 
 export const selectSearchResultsCount = createSelector(
